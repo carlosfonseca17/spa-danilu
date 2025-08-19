@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>danilu</title>
+    <link rel="stylesheet" href="/public/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Iniciar Sesión</h2>
+        <form id="loginForm">
+            <input type="email" id="correo" name="correo" placeholder="Correo electrónico" required>
+            <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required>
+            <button type="submit">Entrar</button>
+        </form>
+        <p>¿No tienes cuenta? <a href="/public/code/clientes.html">Regístrate</a></p>
+        <p id="mensaje"></p>
+    </div>
+
+    <script>
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const correo = document.getElementById('correo').value;
+        const contrasena = document.getElementById('contrasena').value;
+        const mensaje = document.getElementById('mensaje');
+        
+        try {
+            const response = await fetch('http://localhost:3000/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ correo, contrasena })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                localStorage.setItem('usuario', JSON.stringify(data.user));
+                mensaje.textContent = '✓ Inicio de sesión exitoso';
+                mensaje.className = 'mensaje success';
+
+                setTimeout(() => {
+    window.location.href = '/public/code/inicio.html';  // Sin /public/
+}, 1000);
+            } else {
+                mensaje.textContent = '✗ ' + data.message;
+                mensaje.className = 'mensaje error';
+            }
+        } catch (error) {
+            mensaje.textContent = '✗ Error al conectar con el servidor';
+            mensaje.className = 'mensaje error';
+            console.error('Error:', error);
+        }
+    });
+    </script>
+</body>
+</html>
