@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>danilu</title>
+    <!-- Ruta relativa para que cargue en GitHub Pages -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -14,7 +15,8 @@
             <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required>
             <button type="submit">Entrar</button>
         </form>
-        <p>¿No tienes cuenta? <a href="/public/code/clientes.html">Regístrate</a></p>
+        <!-- Ruta corregida -->
+        <p>¿No tienes cuenta? <a href="code/clientes.html">Regístrate</a></p>
         <p id="mensaje"></p>
     </div>
 
@@ -40,9 +42,10 @@
                 mensaje.textContent = '✓ Inicio de sesión exitoso';
                 mensaje.className = 'mensaje success';
 
+                // Ruta corregida
                 setTimeout(() => {
-    window.location.href = '/public/code/inicio.html';  // Sin /public/
-}, 1000);
+                    window.location.href = 'code/inicio.html';
+                }, 1000);
             } else {
                 mensaje.textContent = '✗ ' + data.message;
                 mensaje.className = 'mensaje error';
@@ -56,5 +59,7 @@
     </script>
 </body>
 </html>
+
+
 
 
